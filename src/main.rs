@@ -4,10 +4,18 @@ use std::io;
 // as their corresponding strings to print if a factor has been found in one of the numbers.
 const MAX_FACTORS: usize = 3;
 
+struct FactorString<'a> {
+    factor: u32,
+    string: &'a str,
+}
+
+
 // I was hoping to simplify by making an array of tuples of the form (3, "Fizz"), but sadly that
-// doesn't seem possible. As such, having two corresponding arrays is the best I could manage.
-const FACTORS: [u32; MAX_FACTORS] = [3, 5, 7];
-const FACTOR_STRINGS: [&str; MAX_FACTORS] = ["Fizz", "Buzz", "Pop"];
+// doesn't seem possible. As such, having an array of structs is the best I could manage.
+const FACTORS_AND_STRINGS: [FactorString; MAX_FACTORS] =
+                                                        [ FactorString { factor: 3, string: "Fizz", },
+                                                          FactorString { factor: 5, string: "Buzz", },
+                                                          FactorString { factor: 7, string: "Pop", }];
 
 fn main() {
     println!("FizzBuzz");
@@ -41,8 +49,8 @@ fn main() {
             // If a factor has been found (i.e., the remainder is 0 when the number is divided by
             // it), we need to push the corrresponding string into the result_string to print at
             // the end.
-            if count % FACTORS[factor_count] == 0 {
-                result_string.push_str(FACTOR_STRINGS[factor_count]);
+            if count % FACTORS_AND_STRINGS[factor_count].factor == 0 {
+                result_string.push_str(FACTORS_AND_STRINGS[factor_count].string);
             }
         }
 

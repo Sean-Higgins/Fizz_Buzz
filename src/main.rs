@@ -9,13 +9,12 @@ struct FactorString<'a> {
     string: &'a str,
 }
 
-
 // I was hoping to simplify by making an array of tuples of the form (3, "Fizz"), but sadly that
 // doesn't seem possible. As such, having an array of structs is the best I could manage.
 const FACTORS_AND_STRINGS: [FactorString; MAX_FACTORS] =
-                                                        [ FactorString { factor: 3, string: "Fizz", },
-                                                          FactorString { factor: 5, string: "Buzz", },
-                                                          FactorString { factor: 7, string: "Pop", }];
+                                                        [ FactorString { factor: 3, string: "Fizz" },
+                                                          FactorString { factor: 5, string: "Buzz" },
+                                                          FactorString { factor: 7, string: "Pop" } ];
 
 fn main() {
     println!("FizzBuzz");
@@ -45,12 +44,12 @@ fn main() {
         let mut result_string = String::new();
 
         // Check each factor in each number.
-        for factor_count in 0..MAX_FACTORS {
+        for factor_data in FACTORS_AND_STRINGS {
             // If a factor has been found (i.e., the remainder is 0 when the number is divided by
             // it), we need to push the corrresponding string into the result_string to print at
             // the end.
-            if count % FACTORS_AND_STRINGS[factor_count].factor == 0 {
-                result_string.push_str(FACTORS_AND_STRINGS[factor_count].string);
+            if count % factor_data.factor == 0 {
+                result_string.push_str(factor_data.string);
             }
         }
 
